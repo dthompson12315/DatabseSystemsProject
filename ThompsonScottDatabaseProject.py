@@ -2,7 +2,7 @@ import sqlite3
 from sqlite3 import Error
 from faker import Faker
 from random import randint
-import timeit
+import time
 fake = Faker()
 
 def createDatabases():
@@ -569,77 +569,114 @@ def testQueries():
     print("Running Test Queries On Base Database:")
     conn = connectToDB("base.sqlite")
     cursorObj = conn.cursor()
-    Query1 = ""
-    print("Running Query 1")
+    Query1 = "select author.name, papers.title, reviewers.reviewer_ID,venue.venue_name from author,reviewers,event,venue,papers where author.author_ID = papers.author_ID AND reviewers.paper_ID = papers.paper_ID AND papers.event_ID = event.event_ID AND venue.venue_ID = event.venue_ID order by author.name;"
     total_time = 0
     for i in range(1000):
-        total_time += timeit.timeit(cursorObj.execute(Query1))
+        start_time = time.time() 
+        cursorObj.execute(Query1).fetchall()
+        end_time = time.time()
+        total_time += end_time - start_time
     print("Average Query 1 time: {}".format(total_time/1000))
+    conn.close()
     
-    Query2 = ""
-    print("Running Query 2")
+    conn = connectToDB("base.sqlite")
+    cursorObj = conn.cursor()
+    Query2 = "select author.name, papers.topic, event.attendees_interested_in_topic from author, papers, event where event.topic = papers.topic;"
     total_time = 0
     for i in range(1000):
-        total_time += timeit.timeit(cursorObj.execute(Query2))
+        start_time = time.time() 
+        cursorObj.execute(Query2).fetchall()
+        end_time = time.time()
+        total_time += end_time - start_time
     print("Average Query 2 time: {}".format(total_time/1000))
+    conn.close()
     
+    conn = connectToDB("base.sqlite")
+    cursorObj = conn.cursor()
     Query3 = ""
-    print("Running Query 3")
     total_time = 0
     for i in range(1000):
-        total_time += timeit.timeit(cursorObj.execute(Query3))
+        start_time = time.time() 
+        cursorObj.execute(Query3).fetchall()
+        end_time = time.time()
+        total_time += end_time - start_time
     print("Average Query 3 time: {}".format(total_time/1000))
+    conn.close()
 
     print("Running Test Queries On Decomp1 Database:")
     conn = connectToDB("decomp1.sqlite")
     cursorObj = conn.cursor()
-    Query1 = ""
-    print("Running Query 1")
+    Query1 = "select author.name, papers.title, reviewers.reviewer_ID, venue.venue_name from author,reviewers,event,venue,papers where author.author_ID = papers.author_ID AND reviewers.paper_ID = papers.paper_ID AND papers.event_ID = event.event_ID AND venue.venue_ID = event.venue_ID order by author.name;"
     total_time = 0
     for i in range(1000):
-        total_time += timeit.timeit(cursorObj.execute(Query1))
+        start_time = time.time() 
+        cursorObj.execute(Query1).fetchall()
+        end_time = time.time()
+        total_time += end_time - start_time
     print("Average Query 1 time: {}".format(total_time/1000))
+    conn.close()
     
-    Query2 = ""
-    print("Running Query 2")
+    conn = connectToDB("decomp1.sqlite")
+    cursorObj = conn.cursor()
+    Query2 = "select author.name, papers.topic, event.attendees_interested_in_topic from author, papers, event where event.topic = papers.topic;"
     total_time = 0
     for i in range(1000):
-        total_time += timeit.timeit(cursorObj.execute(Query2))
+        start_time = time.time() 
+        cursorObj.execute(Query2).fetchall()
+        end_time = time.time()
+        total_time += end_time - start_time
     print("Average Query 2 time: {}".format(total_time/1000))
+    conn.close()
     
+    conn = connectToDB("decomp1.sqlite")
+    cursorObj = conn.cursor()
     Query3 = ""
-    print("Running Query 3")
     total_time = 0
     for i in range(1000):
-        total_time += timeit.timeit(cursorObj.execute(Query3))
+        start_time = time.time() 
+        cursorObj.execute(Query3).fetchall()
+        end_time = time.time()
+        total_time += end_time - start_time
     print("Average Query 3 time: {}".format(total_time/1000))
+    conn.close()
 
     print("Running Test Queries On Decomp2 Database:")
     conn = connectToDB("decomp2.sqlite")
     cursorObj = conn.cursor()
-    Query1 = ""
-    print("Running Query 1")
+    Query1 = "select author.name,papers.title,reviewers.reviewer_ID,venue.venue_name from author,reviewers,event,venue,papers where author.author_ID = papers.author_ID AND reviewers.paper_ID = papers.paper_ID AND papers.event_ID = event.event_ID AND venue.venue_ID = event.venue_ID order by author.name;"
     total_time = 0
     for i in range(1000):
-        total_time += timeit.timeit(cursorObj.execute(Query1))
+        start_time = time.time() 
+        cursorObj.execute(Query1).fetchall()
+        end_time = time.time()
+        total_time += end_time - start_time
     print("Average Query 1 time: {}".format(total_time/1000))
+    conn.close()
     
-    Query2 = ""
-    print("Running Query 2")
+    conn = connectToDB("decomp2.sqlite")
+    cursorObj = conn.cursor()
+    Query2 = "select author.name, papers.topic, topics.attendees_interested_in_topic, topics.topic from author, papers, topics where topics.topic = papers.topic;;"
     total_time = 0
     for i in range(1000):
-        total_time += timeit.timeit(cursorObj.execute(Query2))
+        start_time = time.time() 
+        cursorObj.execute(Query2).fetchall()
+        end_time = time.time()
+        total_time += end_time - start_time
     print("Average Query 2 time: {}".format(total_time/1000))
+    conn.close()
     
+    conn = connectToDB("decomp2.sqlite")
+    cursorObj = conn.cursor()
     Query3 = ""
-    print("Running Query 3")
     total_time = 0
     for i in range(1000):
-        total_time += timeit.timeit(cursorObj.execute(Query3))
+        start_time = time.time() 
+        cursorObj.execute(Query3).fetchall()
+        end_time = time.time()
+        total_time += end_time - start_time
     print("Average Query 3 time: {}".format(total_time/1000))
+    conn.close()
     
-
-
 
 #Utility function to add tables to database
 def createTable(conn, createTableSql):
@@ -668,7 +705,7 @@ def connectToDB(db_file):
         return conn
     except Error as e:
         print(e)
-
     return conn
 
-createDatabases()
+#createDatabases()
+testQueries()
