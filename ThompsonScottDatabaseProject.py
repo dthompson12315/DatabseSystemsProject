@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import Error
 from faker import Faker
 from random import randint
+import timeit
 fake = Faker()
 
 def createDatabases():
@@ -563,6 +564,81 @@ def fillDecomp2():
         insertValues(conn, insertSql)
     conn.close()
     ###################################################################
+
+def testQueries():
+    print("Running Test Queries On Base Database:")
+    conn = connectToDB("base.sqlite")
+    cursorObj = conn.cursor()
+    Query1 = ""
+    print("Running Query 1")
+    total_time = 0
+    for i in range(1000):
+        total_time += timeit.timeit(cursorObj.execute(Query1))
+    print("Average Query 1 time: {}".format(total_time/1000))
+    
+    Query2 = ""
+    print("Running Query 2")
+    total_time = 0
+    for i in range(1000):
+        total_time += timeit.timeit(cursorObj.execute(Query2))
+    print("Average Query 2 time: {}".format(total_time/1000))
+    
+    Query3 = ""
+    print("Running Query 3")
+    total_time = 0
+    for i in range(1000):
+        total_time += timeit.timeit(cursorObj.execute(Query3))
+    print("Average Query 3 time: {}".format(total_time/1000))
+
+    print("Running Test Queries On Decomp1 Database:")
+    conn = connectToDB("decomp1.sqlite")
+    cursorObj = conn.cursor()
+    Query1 = ""
+    print("Running Query 1")
+    total_time = 0
+    for i in range(1000):
+        total_time += timeit.timeit(cursorObj.execute(Query1))
+    print("Average Query 1 time: {}".format(total_time/1000))
+    
+    Query2 = ""
+    print("Running Query 2")
+    total_time = 0
+    for i in range(1000):
+        total_time += timeit.timeit(cursorObj.execute(Query2))
+    print("Average Query 2 time: {}".format(total_time/1000))
+    
+    Query3 = ""
+    print("Running Query 3")
+    total_time = 0
+    for i in range(1000):
+        total_time += timeit.timeit(cursorObj.execute(Query3))
+    print("Average Query 3 time: {}".format(total_time/1000))
+
+    print("Running Test Queries On Decomp2 Database:")
+    conn = connectToDB("decomp2.sqlite")
+    cursorObj = conn.cursor()
+    Query1 = ""
+    print("Running Query 1")
+    total_time = 0
+    for i in range(1000):
+        total_time += timeit.timeit(cursorObj.execute(Query1))
+    print("Average Query 1 time: {}".format(total_time/1000))
+    
+    Query2 = ""
+    print("Running Query 2")
+    total_time = 0
+    for i in range(1000):
+        total_time += timeit.timeit(cursorObj.execute(Query2))
+    print("Average Query 2 time: {}".format(total_time/1000))
+    
+    Query3 = ""
+    print("Running Query 3")
+    total_time = 0
+    for i in range(1000):
+        total_time += timeit.timeit(cursorObj.execute(Query3))
+    print("Average Query 3 time: {}".format(total_time/1000))
+    
+
 
 
 #Utility function to add tables to database
