@@ -30,8 +30,9 @@ def createOriginalDatabase():
         createQuery = """CREATE TABLE IF NOT EXISTS event (
                             event_ID integer PRIMARY KEY AUTOINCREMENT,
                             time text,
-                            title text,
+                            topic text,
                             number_of_papers integer,
+                            attendees_interested_in_topic integer,
                             venue_ID integer,
                             FOREIGN KEY(venue_ID) REFERENCES venue
                         );
@@ -98,8 +99,8 @@ def fillOriginalDatabse(conn):
         insertValues(conn, insertSql)
 
         #add a row to the event table
-        event_row = (str(fake.date_time()), fake.sentence(), randint(1, 5), randint(1,100))
-        insertSql = "INSERT INTO event (time, title, number_of_papers, venue_ID) VALUES {};".format(event_row)
+        event_row = (str(fake.date_time()), fake.sentence(), randint(1, 5), randint(100,1000), randint(1,100))
+        insertSql = "INSERT INTO event (time, topic, number_of_papers, attendees_interested_in_topic, venue_ID) VALUES {};".format(event_row)
         insertValues(conn, insertSql)
 
         #add a row to the author table
