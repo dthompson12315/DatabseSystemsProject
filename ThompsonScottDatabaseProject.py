@@ -593,14 +593,14 @@ def testQueries():
     
     conn = connectToDB("base.sqlite")
     cursorObj = conn.cursor()
-    Query3 = ""
+    Query3 = "select author.name, papers.title, venue.building_number, venue.postalcode, chairs.chair_ID, reviewers.reviewer_ID, venue.venue_name from author,reviewers,event,venue,papers,chairs where author.author_ID = papers.author_ID AND reviewers.paper_ID = papers.paper_ID AND papers.event_ID = event.event_ID AND venue.venue_ID = event.venue_ID order by author.name;"
     total_time = 0
     for i in range(1000):
         start_time = time.time() 
         cursorObj.execute(Query3).fetchall()
         end_time = time.time()
         total_time += end_time - start_time
-    print("Average Query 3 time: {}".format(total_time/1000))
+    print("Average Query 3 time: {}\n".format(total_time/1000))
     conn.close()
 
     print("Running Test Queries On Decomp1 Database:")
@@ -630,14 +630,14 @@ def testQueries():
     
     conn = connectToDB("decomp1.sqlite")
     cursorObj = conn.cursor()
-    Query3 = ""
+    Query3 = "select author.name, papers.title, addresses.building_number, addresses.postalcode, chairs.chair_ID, venue.postalcode, reviewers.reviewer_ID, venue.venue_name from author,reviewers,event,venue,papers,chairs,addresses where author.author_ID = papers.author_ID AND reviewers.paper_ID = papers.paper_ID AND papers.event_ID = event.event_ID AND venue.venue_ID = event.venue_ID AND venue.postalcode = addresses.postalcode order by author.name;"
     total_time = 0
     for i in range(1000):
         start_time = time.time() 
         cursorObj.execute(Query3).fetchall()
         end_time = time.time()
         total_time += end_time - start_time
-    print("Average Query 3 time: {}".format(total_time/1000))
+    print("Average Query 3 time: {}\n".format(total_time/1000))
     conn.close()
 
     print("Running Test Queries On Decomp2 Database:")
@@ -655,7 +655,7 @@ def testQueries():
     
     conn = connectToDB("decomp2.sqlite")
     cursorObj = conn.cursor()
-    Query2 = "select author.name, papers.topic, topics.attendees_interested_in_topic, topics.topic from author, papers, topics where topics.topic = papers.topic;;"
+    Query2 = "select author.name, papers.topic, topics.attendees_interested_in_topic, topics.topic from author, papers, topics where topics.topic = papers.topic;"
     total_time = 0
     for i in range(1000):
         start_time = time.time() 
@@ -667,14 +667,14 @@ def testQueries():
     
     conn = connectToDB("decomp2.sqlite")
     cursorObj = conn.cursor()
-    Query3 = ""
+    Query3 = "select author.name, papers.title, addresses.building_number, addresses.postalcode, chairs.chair_ID, venue.postalcode, reviewers.reviewer_ID, venue.venue_name from author,reviewers,event,venue,papers,chairs,addresses where author.author_ID = papers.author_ID AND reviewers.paper_ID = papers.paper_ID AND papers.event_ID = event.event_ID AND venue.venue_ID = event.venue_ID AND venue.postalcode = addresses.postalcode order by author.name;"
     total_time = 0
     for i in range(1000):
         start_time = time.time() 
         cursorObj.execute(Query3).fetchall()
         end_time = time.time()
         total_time += end_time - start_time
-    print("Average Query 3 time: {}".format(total_time/1000))
+    print("Average Query 3 time: {}\n".format(total_time/1000))
     conn.close()
     
 
@@ -707,5 +707,5 @@ def connectToDB(db_file):
         print(e)
     return conn
 
-#createDatabases()
+createDatabases()
 testQueries()
